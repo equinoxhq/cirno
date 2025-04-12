@@ -8,7 +8,7 @@ logScope:
 let discord = newDiscordClient(getEnv("CIRNO_TOKEN"))
 const ChannelId* {.strdefine: "CirnoChannelId".} = "1360607944038678616"
 
-proc loop {.async.} =
+proc loop() {.async.} =
   info "Checking for new FFlags"
   let fflags = fetchFFlagList()
   let oldList = readList(List.A)
@@ -17,7 +17,7 @@ proc loop {.async.} =
     if content.len > 1999:
       discard await discord.api.sendMessage(
         ChannelId,
-        content = ":warning: **FFlag is too large to express!**: `" & flag & '`'
+        content = ":warning: **FFlag is too large to express!**: `" & flag & '`',
       )
       continue
 
@@ -30,12 +30,9 @@ proc loop {.async.} =
       let content = "```diff\n+ " & flag & ": " & $value & "```"
       lengthCheck(content, flag)
 
-      discard await discord.api.sendMessage(
-        ChannelId,
-        content = content
-      )
+      discard await discord.api.sendMessage(ChannelId, content = content)
       sleep(50)
-    
+
     writeList(List.A, fflags.get())
   else:
     # diff viewer
@@ -46,10 +43,7 @@ proc loop {.async.} =
         let content = "```diff\n+ " & newFlag & ": " & $newVal & "```"
         lengthCheck(content, newFlag)
 
-        discard await discord.api.sendMessage(
-          ChannelId,
-          content = content
-        )
+        discard await discord.api.sendMessage(ChannelId, content = content)
       else:
         if newVal == old[newFlag]:
           continue
@@ -57,8 +51,8 @@ proc loop {.async.} =
         discard await discord.api.sendMessage(
           ChannelId,
           content =
-            "```diff\n- " & newFlag & ": " & $old[newFlag] & '\n' &
-            "+ " & newFlag & ": " & $newVal & "\n```"
+            "```diff\n- " & newFlag & ": " & $old[newFlag] & '\n' & "+ " & newFlag & ": " &
+            $newVal & "\n```",
         )
 
 # Handle event for on_ready.
@@ -66,10 +60,10 @@ proc onReady(s: Shard, r: Ready) {.event(discord).} =
   echo "Ready as " & $r.user
 
   await s.updateStatus(
-    activity = some ActivityStatus(name: "Skibidi Toilet Simulator", kind: atPlaying), 
-    status = "online"
+    activity = some ActivityStatus(name: "Skibidi Toilet Simulator", kind: atPlaying),
+    status = "online",
   )
-  
+
   while true:
     await loop()
     await sleepAsync(18000000) # Professionally sleep for 5 hours

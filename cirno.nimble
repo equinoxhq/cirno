@@ -1,16 +1,15 @@
 # Package
 
-version       = "0.1.0"
-author        = "xTrayambak"
-description   = "A very simple FFlag tracker written in Nim"
-license       = "GPL-3.0-or-later"
-srcDir        = "src"
-bin           = @["cirno"]
-
+version = "0.1.0"
+author = "xTrayambak"
+description = "A very simple FFlag tracker written in Nim"
+license = "GPL-3.0-or-later"
+srcDir = "src"
+bin = @["cirno"]
 
 # Dependencies
 
-requires "nim >= 0.0.0"  # I love replit
+requires "nim >= 0.0.0" # I love replit
 requires "chronicles >= 0.10.3"
 requires "curly >= 1.1.1"
 requires "results >= 0.5.1"
