@@ -4,3 +4,4 @@
 !.github/
 !.github/*
 !LICENSE
+*.json

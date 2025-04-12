@@ -9,7 +9,7 @@ type
   
   List* {.pure, size: sizeof(uint8).} = enum
     A = 0x0  ## Old list.
-    B = 0x1  ## New list.
+    B = 0x1  ## New list. Unused.
 
 proc writeList*(list: List, src: string) =
   info "Writing to list",
