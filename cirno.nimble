@@ -10,8 +10,7 @@ bin           = @["cirno"]
 
 # Dependencies
 
-requires "nim >= 2.0.0"
-
+requires "nim >= 0.0.0"  # I love replit
 requires "chronicles >= 0.10.3"
 requires "curly >= 1.1.1"
 requires "results >= 0.5.1"

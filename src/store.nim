@@ -7,9 +7,9 @@ logScope:
 type
   StoreFailed* = object of CatchableError
   
-  List* {.pure.} = enum
-    A = 0x0
-    B = 0x1
+  List* {.pure, size: sizeof(uint8).} = enum
+    A = 0x0  ## Old list.
+    B = 0x1  ## New list.
 
 proc writeList*(list: List, src: string) =
   info "Writing to list",
